@@ -81,7 +81,11 @@ CREATE TABLE `article` (
   `state` tinyint(2) DEFAULT '1',
   PRIMARY KEY (`article_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-/*文章content一般很长所以使用text类型存储，还有时间大多时候选择timestamp 大概记住下， state在这里用于软删除的实现，有兴趣的可以查查软删除的概念 */
+/*文章content一般很长所以使用text类型存储，还有时间大多时候选择timestamp 大概记住下， state在这里用于软删除的实现，有兴趣的可以查查软删除的概念 
+ timestamp相比于其他时间类型主要优势是转化简单(通过时间戳计算当时的年月日 或者 另一时区下)，精度较高     
+int能表示的最大数字的位数是10位，但在有符号的情况下，设计表时最大置为11位(多出那位用于表示符号)
+
+*/
 /*用户表，像密码因为要进行hash加密，所以加密后的长度固定，所以用char类型。int类型他不是无限长的，他最多是11位来着，这个大概了解下，还有就是加索引，如果学有余力的可以先看下吧*/
 CREATE TABLE `dalao` (
   `dl_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -165,9 +169,9 @@ class B extends A{
 
 ​	![示意图](1.png)
 
-#### 关于php解析
+#### 关于php解析  
 
-##### php：服务器会根据请求调用相应的web程序(这里指php程序)去获取页面显示的必须资源，然后web程序动态地生成html文件后，服务器会将其返回给客户端，从而完成一次响应
+##### php：服务器会根据请求调用相应的web程序(这里指php程序)去获取页面显示的必需资源，然后web程序动态地生成html文件后，服务器会将其返回给客户端，从而完成一次响应
 
 
 
