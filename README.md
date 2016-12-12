@@ -35,14 +35,15 @@ print_r($result);
    	  	return $array1;  	
      }
 	
-	//参数很多
-		function my_array_merge($array1, $array2) {
+		//参数很多
+		function my_array_merge() {
           	$args = func_get_args();
           	$array = array_pop($args);
             foreach($args as $value)
               foreach($value as $key => $val) {
                 $array[$key] = $val;
               }
+          	return $array;
         }
 ```
 
