@@ -1,107 +1,348 @@
-# jQuery File Upload Plugin
+1在php中对数组有着丰富的函数，array_merge()是 将一个或多个数组的单元合并起来，一个数组中的值附加在前一个数组的后面。返回作为结果的数组.
 
-## Demo
-[Demo File Upload](https://blueimp.github.io/jQuery-File-Upload/)
+```php
+<?php
+$array1 = array("color" => "red", 2, 4);
+$array2 = array("a", "b", "color" => "green", "shape" => "trapezoid", 4);
+result = array_merge(array1, $array2);
+print_r($result);
+/* 结果将得到：
+  Array
+  (
+      [color] => green
+      [0] => 2
+      [1] => 4
+      [2] => a
+      [3] => b
+      [shape] => trapezoid
+      [4] => 4
+  )
+  */
+?>
+```
 
-## Description
-File Upload widget with multiple file selection, drag&amp;drop support, progress bars, validation and preview images, audio and video for jQuery.  
-Supports cross-domain, chunked and resumable file uploads and client-side image resizing. Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.
+你们尝试用已学的知识去构造这个函数:
 
-## Setup
-* [How to setup the plugin on your website](https://github.com/blueimp/jQuery-File-Upload/wiki/Setup)
-* [How to use only the basic plugin (minimal setup guide).](https://github.com/blueimp/jQuery-File-Upload/wiki/Basic-plugin)
+参考答案：
 
-## Features
-* **Multiple file upload:**  
-  Allows to select multiple files at once and upload them simultaneously.
-* **Drag & Drop support:**  
-  Allows to upload files by dragging them from your desktop or filemanager and dropping them on your browser window.
-* **Upload progress bar:**  
-  Shows a progress bar indicating the upload progress for individual files and for all uploads combined.
-* **Cancelable uploads:**  
-  Individual file uploads can be canceled to stop the upload progress.
-* **Resumable uploads:**  
-  Aborted uploads can be resumed with browsers supporting the Blob API.
-* **Chunked uploads:**  
-  Large files can be uploaded in smaller chunks with browsers supporting the Blob API.
-* **Client-side image resizing:**  
-  Images can be automatically resized on client-side with browsers supporting the required JS APIs.
-* **Preview images, audio and video:**  
-  A preview of image, audio and video files can be displayed before uploading with browsers supporting the required APIs.
-* **No browser plugins (e.g. Adobe Flash) required:**  
-  The implementation is based on open standards like HTML5 and JavaScript and requires no additional browser plugins.
-* **Graceful fallback for legacy browsers:**  
-  Uploads files via XMLHttpRequests if supported and uses iframes as fallback for legacy browsers.
-* **HTML file upload form fallback:**  
-  Allows progressive enhancement by using a standard HTML file upload form as widget element.
-* **Cross-site file uploads:**  
-  Supports uploading files to a different domain with cross-site XMLHttpRequests or iframe redirects.
-* **Multiple plugin instances:**  
-  Allows to use multiple plugin instances on the same webpage.
-* **Customizable and extensible:**  
-  Provides an API to set individual options and define callBack methods for various upload events.
-* **Multipart and file contents stream uploads:**  
-  Files can be uploaded as standard "multipart/form-data" or file contents stream (HTTP PUT file upload).
-* **Compatible with any server-side application platform:**  
-  Works with any server-side platform (PHP, Python, Ruby on Rails, Java, Node.js, Go etc.) that supports standard HTML form file uploads.
+```php
+   //构建函数
+     function my_array_merge($array1, $array2) {
+      	foreach ($array2 as $key => $value) {
+      		//基础的
+   	  		$array1[$key] = $value;
+         }
+   	  	return $array1;  	
+     }
+	
+	//参数很多
+		function my_array_merge($array1, $array2) {
+          	$args = func_get_args();
+          	$array = array_pop($args);
+            foreach($args as $value)
+              foreach($value as $key => $val) {
+                $array[$key] = $val;
+              }
+        }
+```
 
-## Requirements
 
-### Mandatory requirements
-* [jQuery](https://jquery.com/) v. 1.6+
-* [jQuery UI widget factory](https://api.jqueryui.com/jQuery.widget/) v. 1.9+ (included): Required for the basic File Upload plugin, but very lightweight without any other dependencies from the jQuery UI suite.
-* [jQuery Iframe Transport plugin](https://github.com/blueimp/jQuery-File-Upload/blob/master/js/jquery.iframe-transport.js) (included): Required for [browsers without XHR file upload support](https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support).
 
-### Optional requirements
-* [JavaScript Templates engine](https://github.com/blueimp/JavaScript-Templates) v. 2.5.4+: Used to render the selected and uploaded files for the Basic Plus UI and jQuery UI versions.
-* [JavaScript Load Image library](https://github.com/blueimp/JavaScript-Load-Image) v. 1.13.0+: Required for the image previews and resizing functionality.
-* [JavaScript Canvas to Blob polyfill](https://github.com/blueimp/JavaScript-Canvas-to-Blob) v. 2.1.1+:Required for the image previews and resizing functionality.
-* [blueimp Gallery](https://github.com/blueimp/Gallery) v. 2.15.1+: Used to display the uploaded images in a lightbox.
-* [Bootstrap](http://getbootstrap.com/) v. 3.2.0+
-* [Glyphicons](http://glyphicons.com/)
 
-The user interface of all versions except the jQuery UI version is built with [Bootstrap](http://getbootstrap.com/) and icons from [Glyphicons](http://glyphicons.com/).
 
-### Cross-domain requirements
-[Cross-domain File Uploads](https://github.com/blueimp/jQuery-File-Upload/wiki/Cross-domain-uploads) using the [Iframe Transport plugin](https://github.com/blueimp/jQuery-File-Upload/blob/master/js/jquery.iframe-transport.js) require a redirect back to the origin server to retrieve the upload results. The [example implementation](https://github.com/blueimp/jQuery-File-Upload/blob/master/js/main.js) makes use of [result.html](https://github.com/blueimp/jQuery-File-Upload/blob/master/cors/result.html) as a static redirect page for the origin server.
+3 现在网校为了方便大家交流学习知识，需要做一个校园博客平台。请你根据以下需求设计一个合理的数据库。 
 
-The repository also includes the [jQuery XDomainRequest Transport plugin](https://github.com/blueimp/jQuery-File-Upload/blob/master/js/cors/jquery.xdr-transport.js), which enables limited cross-domain AJAX requests in Microsoft Internet Explorer 8 and 9 (IE 10 supports cross-domain XHR requests).  
-The XDomainRequest object allows GET and POST requests only and doesn't support file uploads. It is used on the [Demo](https://blueimp.github.io/jQuery-File-Upload/) to delete uploaded files from the cross-domain demo file upload service.
+需求： 
 
-### Custom Backends
+1. 大佬可以用自己的账号登录系统写博客 
+2. 游客可以对任意一篇博客点赞 
+3. 每篇博客需要显示标题、文章类型、内容、发表时间、点赞数量、博主 
+4. 游客可以根据文章类型查看该类型所有博客 
+5. 游客可以查看博主的信息（账号名、姓名、电话） 
 
-You can add support for various backends by adhering to the specification [outlined here](https://github.com/blueimp/jQuery-File-Upload/wiki/JSON-Response).
+说明： 
 
-## Browsers
+1. 用设计范式对表设计进行检验 
 
-### Desktop browsers
-The File Upload plugin is regularly tested with the latest browser versions and supports the following minimal versions:
+2. 每个字段选择合适的数据类型 
 
-* Google Chrome
-* Apple Safari 4.0+
-* Mozilla Firefox 3.0+
-* Opera 11.0+
-* Microsoft Internet Explorer 6.0+
+3. 写出第3个需求的sql语句
 
-### Mobile browsers
-The File Upload plugin has been tested with and supports the following mobile browsers:
+   参考答案
 
-* Apple Safari on iOS 6.0+
-* Google Chrome on iOS 6.0+
-* Google Chrome on Android 4.0+
-* Default Browser on Android 2.3+
-* Opera Mobile 12.0+
+```sql
+CREATE TABLE `article` (
+  `article_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `created_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `dl_id` int(11) DEFAULT NULL,
+  `praise_num` int(11) unsigned DEFAULT NULL,
+  `state` tinyint(2) DEFAULT '1',
+  PRIMARY KEY (`article_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*文章content一般很长所以使用text类型存储，还有时间大多时候选择timestamp 大概记住下， state在这里用于软删除的实现，有兴趣的可以查查软删除的概念 */
+/*用户表，像密码因为要进行hash加密，所以加密后的长度固定，所以用char类型。int类型他不是无限长的，他最多是11位来着，这个大概了解下，还有就是加索引，如果学有余力的可以先看下吧*/
+CREATE TABLE `dalao` (
+  `dl_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dl_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `dl_password` char(64) DEFAULT NULL,
+  `mobilephone` bigint(11) unsigned NOT NULL,
+  `nickname` varchar(30) NOT NULL,
+  PRIMARY KEY (`dl_id`),
+  UNIQUE KEY `nickname` (`nickname`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-### Supported features
-For a detailed overview of the features supported by each browser version, please have a look at the [Extended browser support information](https://github.com/blueimp/jQuery-File-Upload/wiki/Browser-support).
+SELECT 
+`article`.article_id, 
+`article`.title, 
+`article`.created_time, 
+`article`.praise_num, 
+`dalao`.nickname 
+FROM `article` 
+INNER JOIN 
+`dalao` 
+ON 
+`article`.dl_id = `dalao`.dl_id;
+```
+6这是一个名字为*students*的表
 
-## Contributing
-**Bug fixes** and **new features** can be proposed using [pull requests](https://github.com/blueimp/jQuery-File-Upload/pulls).
-Please read the [contribution guidelines](https://github.com/blueimp/jQuery-File-Upload/blob/master/CONTRIBUTING.md) before submitting a pull request.
+| id   | username | stuId      |
+| ---- | -------- | ---------- |
+| 1    | 李小明      | 2015210333 |
+| 2    | 李小红      | 2015210366 |
+| 3    | 李小华      | 2015210344 |
+| 4    | 张小明      | 2015210444 |
+| 5    | 杨小明      | 2015211412 |
+| 6    | 陈明       | 2015213112 |
+| 7    | 陈小明      | 2015212134 |
 
-## Support
-This project is actively maintained, but there is no official support channel.  
-If you have a question that another developer might help you with, please post to [Stack Overflow](http://stackoverflow.com/questions/tagged/blueimp+jquery+file-upload) and tag your question with `blueimp jquery file upload`.
+**写出下列要求的 sql语句**
 
-## License
-Released under the [MIT license](http://www.opensource.org/licenses/MIT).
+- 搜索所有id小于4的同学的所有字段
+
+- 搜索所有学号前缀为*2015210*的同学的*usename*和*stuId*字段
+
+- 搜索所有名字中含有 *明* 的*usename*和*stuId*字段
+
+  参考答案
+
+```sql
+SELECT * FROM students WHERE id < 4;
+SELECT username,stuid FROM  students WHERE id like '2015210%';
+SELECT username,stuid FROM  students WHERE username like '%明%'
+/*这里主要考了模糊查询， 记住一些占位符的意思 区别 %和_*/
+```
+7 下列代码输出内容是
+
+
+
+```php
+<?php 
+class A{ 
+    public function __construct(){ 
+        echo "Class A...<br/>"; 
+    }
+}
+class B extends A{
+    public function __construct(){
+        echo "Class B...<br/>"; 
+    }
+}
+    new B();
+?>
+```
+
+是类的重载问题，具体的看文档。参考答案：Class B...
+
+10 在浏览器地址栏输入一个网址到显示网页的过程中（假设是个PHP网页），浏览器,服务器和php程序是怎么相互配合工作的。
+
+ http://developer.51cto.com/art/201007/209634_all.htm 可以自己看下。
+
+也可以参考下面
+
+当我们在浏览器输入URL后，浏览器会先请求DNS服务器，获得请求站点的 IP 地址。然后发送一个HTTP Request（请求）给拥有该 IP 的主机，接着就会接收到服务器给我们的 HTTP Response（响应），浏览器经过渲染后，以一种较好的效果呈现给我们。这个过程中，正是Web服务器在幕后默默做贡献。
+
+​	![示意图](1.png)
+
+#### 关于php解析
+
+##### php：服务器会根据请求调用相应的web程序(这里指php程序)去获取页面显示的必须资源，然后web程序动态地生成html文件后，服务器会将其返回给客户端，从而完成一次响应
+
+
+
+11
+
+```php
+   <?php 
+       class Person
+       {
+          public $name;  //姓名
+          public $sex;  //性别
+          public $age;  //年龄
+          public $height;  //身高
+          public $temperament;  //性格
+       }
+
+       interface Introduction
+       {
+          function introduce();  //介绍
+       }
+```
+
+
+ 写一个男朋友(BoyFriend)或女朋友(GirlFriend)类,如果没有可以自己想象嘛
+
+   要求:
+
+- 继承上面的Person类并实现Introduction接口
+- 使用魔术方法__construct为成员赋值
+   - 可自定义其他成员或方法，使自我介绍清晰完整
+   - 让你的男/女朋友自我介绍，写出运行结果（提示：创建一个新的对象后调用introduce()方法）
+
+```php
+<?php 
+    class Person
+    {
+       public $name;  //姓名
+       public $sex;  //性别
+       public $age;  //年龄
+       public $height;  //身高
+       public $temperament;  //性格
+    }
+
+    interface Introduction
+    {
+       function introduce();  //介绍
+    }
+//懂得类的继承和接口的继承的语法
+class GirlFriend extends Person implements Introduction
+{
+	public function __construct($name, $sex, $age, $height, $temperament)
+	{
+	    $this->name = $name;
+      	$this->sex = $sex;//后面的应该一样的写
+      	 
+	}
+    public function introduce()
+    {
+        echo"$this->name is my girlfriend.";//这个乱写的
+    }
+}
+
+$gf = new GirlFriend('heh', 'nv', '18', '124', '2131');
+$gf->introduce();
+```
+15用php写一个函数
+
+1. 写一个函数；传入一个数组，返回一个含有传入数组所有键名的数组；
+2. 写一个函数；传入一个数组，传入一个指定值（如字符串）；返回指定值的键名；
+3. 以上两个函数合并为一个函数，当不传入第二个参数时返回（1）的结果；当传入第二个参数时，返回（2）的结果。
+
+例子：
+
+```php
+$arr = [
+     'color1' => 'red', 
+     'color2' => 'blue', 
+     'color3' => 'green', 
+     'color4' => 'blue'
+];
+arr_keys($arr)         // 返回 ['color1', 'color2', 'color3', 'color4'];
+arr_keys($arr, 'blue')  // ['color2', 'color4'];
+```
+
+
+
+参考答案
+
+```php
+function my_array_keys($array) {
+  $keys = [];
+  foreach($array as $key => $value) {
+    $keys[] = $key;
+  }
+  return $keys;
+}
+
+function my_array_search($array, $search) {
+  foreach($array as $key => $value) {
+    if($search == $value) {
+      return $key;
+    }
+  }
+  return false;
+}
+
+function my_function($array, $search=null) {
+  $keys = [];
+  foreach($array as $key => $value) {
+    if (is_null($search)) {
+      $keys[] = $key;
+    }elseif($search == $value) {
+      return $key;
+    }
+  }
+	return is_null($search) ? $keys : false;
+}
+```
+
+
+
+16
+
+才高考完的李华想写一个简单的登录验证。他在后端接受表单提交的数据代码如下
+
+```php
+<?php
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $db = new PDO("mysql:hots=localhost;dbname=class","root","root");
+    $find = $db->prepare("SELECT password form user_info where username=:username");
+    //$find->blindParam(":username",$username);
+	$find->bindParam(":username",$username);		//是bind绑定，不是blind
+    $find->execute();
+    $find->setFetchMode(PDO::FETCH_ASSOC);
+
+    $result = $check->fetch();
+
+    if($password == $result['password'])
+
+       // echo "<script>alert("success");</script>";题目引号闭合有问题，注意下
+       echo "<script>alert(\"success\");</script>";
+
+    else
+    echo "<script>alert(\"success\");</script>";
+        //echo "<script>alert("failed");</script>";//题目引号闭合有问题，注意下
+
+?>
+```
+
+但是当他用户名和密码输入为空的时候，却验证登录成功了。请你帮帮他改下代码。（PS：李华说高考完了我也跟你们没完。你有本事帮我写英语作文，你有本事帮我改代码啊，雪姨敲门.jpg）
+
+
+
+参考答案
+
+```php
+$username = $_POST['username']; 
+$password = $_POST['password'];
+if (empty($username) || empty($password)) {
+  echo "<script>alert(\"empty\");</script>";	//~~~你们可以查查is_null empty isset的区别
+}
+$db = new PDO("mysql:hots=localhost;dbname=class","root","root");
+$find = $db->prepare("SELECT password form user_info where username=:username");    
+$find->bindParam(":username",$username);
+$find->execute();
+$find->setFetchMode(PDO::FETCH_ASSOC);
+$result = $check->fetch();
+
+if($password === $result['password'])	//这里也可以用三个等于判定，二个等于和三个等于区别自己百度吧。
+
+  echo "<script>alert(\"success\");</script>";
+else
+  echo "<script>alert(\"failed\");</script>";
+
+```
+
