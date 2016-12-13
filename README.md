@@ -1,3 +1,8 @@
+# [前端答案在这里](https://github.com/pumbf/winterTest/blob/master/FE-answer.md)
+
+
+# 以下是后端答案
+
 1在php中对数组有着丰富的函数，array_merge()是 将一个或多个数组的单元合并起来，一个数组中的值附加在前一个数组的后面。返回作为结果的数组.
 
 ```php
